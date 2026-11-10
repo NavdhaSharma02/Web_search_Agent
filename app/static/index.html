@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#153e35">
+  <meta name="description" content="A search assistant that remembers your conversation and shows its sources.">
+  <title>RecallSearch · A little context goes a long way.</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+<div class="shell">
+  <aside id="sidebar">
+    <a class="brand" href="/" aria-label="RecallSearch home"><span class="brandmark">r<span>↗</span></span>RecallSearch<span class="beta">BETA</span></a>
+    <button class="new-chat" id="new-chat"><span>＋</span> New conversation <kbd>N</kbd></button>
+    <div class="section-label">YOUR CONVERSATIONS <span id="conversation-count">0</span></div>
+    <nav id="conversations" aria-label="Conversations"></nav>
+    <div class="sidebar-bottom"><span class="status-dot"></span><div>Local memory, lasting context<small>Stored on this device in SQLite</small></div></div>
+  </aside>
+  <main>
+    <header><div class="header-left"><button id="menu" aria-label="Toggle conversations">☰</button><span class="workspace">Personal workspace</span><span class="header-divider">/</span><span id="chat-title">New conversation</span></div><div class="header-right"><span class="one-tool"><i></i> One tool. The web.</span><button id="delete-chat" title="Delete this conversation" aria-label="Delete this conversation">⌫</button></div></header>
+    <div id="setup" class="setup" hidden>Add your OpenAI and Tavily API keys to <code>.env</code>, then restart the server. <a href="/docs" target="_blank" rel="noopener">API documentation ↗</a></div>
+    <div id="notice" role="alert" hidden></div>
+    <div id="scroll-area">
+      <section id="welcome">
+        <div class="eyebrow"><span></span> SEARCH WITH A MEMORY</div>
+        <h1>A little context.<br><em>A better answer.</em></h1>
+        <p>Ask, explore, follow up. An assistant that searches the web<br class="desktop-break"> and remembers the thread of your thinking.</p>
+        <div class="suggestions">
+          <button data-prompt="What are the differences between SQLite and PostgreSQL for a small web app?"><span class="suggestion-icon">↗</span><strong>Explore a question</strong><small>SQLite or PostgreSQL for a small app?</small><span class="arrow">↗</span></button>
+          <button data-prompt="I am building a small Python app and prefer simple dependencies. Remember that for this conversation."><span class="suggestion-icon">◷</span><strong>Start with some context</strong><small>Tell me what you’re working on</small><span class="arrow">↗</span></button>
+          <button data-prompt="What makes a source reliable when researching a technical topic?"><span class="suggestion-icon">◎</span><strong>Go beyond the headline</strong><small>Find evidence you can follow</small><span class="arrow">↗</span></button>
+        </div>
+        <div class="welcome-footer"><span>↗ Web-grounded answers</span><b>·</b><span>◷ Conversation memory</span><b>·</b><span>◎ Sources included</span></div>
+      </section>
+      <section id="messages" aria-label="Chat messages" aria-live="polite"></section>
+      <div id="thinking" hidden><span class="spinner"></span> Checking context & searching when needed…</div>
+    </div>
+    <div class="composer-wrap">
+      <form id="composer"><label class="sr-only" for="message">Your message</label><textarea id="message" rows="1" maxlength="4000" placeholder="Ask anything. Follow up naturally." required></textarea><div class="composer-bottom"><span><i></i> Memory is on <span class="composer-separator">·</span> <span id="char-count">0 / 4,000</span></span><button id="send" type="submit" aria-label="Send message">↑</button></div></form>
+      <div class="composer-note"><span>Answers backed by sources. Context kept in this conversation.</span><span>Enter to send <kbd>↵</kbd></span></div>
+    </div>
+  </main>
+</div>
+<dialog id="delete-dialog"><h2>Delete this conversation?</h2><p>Its messages and saved evidence will be permanently removed from the application database.</p><div><button id="cancel-delete">Keep conversation</button><button id="confirm-delete">Delete conversation</button></div></dialog>
+</body>
+</html>
